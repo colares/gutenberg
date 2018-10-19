@@ -116,8 +116,10 @@ class MediaTextEdit extends Component {
 			[ backgroundColor.class ]: backgroundColor.class,
 		} );
 		const widthString = `${ temporaryMediaWidth || mediaWidth }%`;
+		const gridTemplateColumns = 'right' === mediaPosition ? `1fr ${ widthString }` : `${ widthString } 1fr`;
 		const style = {
-			gridTemplateColumns: 'right' === mediaPosition ? `auto ${ widthString }` : `${ widthString } auto`,
+			gridTemplateColumns,
+			msGridColumns: gridTemplateColumns,
 			backgroundColor: backgroundColor.color,
 		};
 		const colorSettings = [ {
