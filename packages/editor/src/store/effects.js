@@ -56,6 +56,9 @@ import {
 	refreshPost,
 	AUTOSAVE_POST_NOTICE_ID,
 } from './effects/posts';
+import {
+	addTermToEditedPost,
+} from './effects/terms';
 
 /**
  * Block validity is a function of blocks state (at the point of a
@@ -284,4 +287,7 @@ export default {
 	REPLACE_BLOCKS: [
 		ensureDefaultBlock,
 	],
+	ADD_TERM_TO_EDITED_POST: ( action ) => {
+		addTermToEditedPost( action );
+	},
 };
