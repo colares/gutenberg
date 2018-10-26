@@ -4,6 +4,7 @@
 import { withSelect } from '@wordpress/data';
 import { Component, createRef, Fragment } from '@wordpress/element';
 import { focus } from '@wordpress/dom';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal Dependencies
@@ -13,6 +14,7 @@ import MultiBlocksSwitcher from '../block-switcher/multi-blocks-switcher';
 import BlockControls from '../block-controls';
 import BlockFormatControls from '../block-format-controls';
 import BlockSettingsMenu from '../block-settings-menu';
+import NavigableToolbar from '../navigable-toolbar';
 
 class BlockToolbar extends Component {
 	constructor() {
@@ -59,7 +61,11 @@ class BlockToolbar extends Component {
 		}
 
 		return (
-			<div className="editor-block-toolbar">
+			<NavigableToolbar
+				className="editor-block-toolbar"
+				aria-label={ __( 'Block Toolbar' ) }
+				scopeId={ 'block-' + blockClientIds[ 0 ] }
+			>
 				{ mode === 'visual' && isValid && (
 					<Fragment>
 						<BlockSwitcher clientIds={ blockClientIds } />
@@ -68,7 +74,7 @@ class BlockToolbar extends Component {
 					</Fragment>
 				) }
 				<BlockSettingsMenu clientIds={ blockClientIds } />
-			</div>
+			</NavigableToolbar>
 		);
 	}
 }

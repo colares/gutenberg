@@ -46,6 +46,7 @@ import BlockMobileToolbar from './block-mobile-toolbar';
 import BlockInsertionPoint from './insertion-point';
 import IgnoreNestedEvents from '../ignore-nested-events';
 import InserterWithShortcuts from '../inserter-with-shortcuts';
+import NavigableToolbar from '../navigable-toolbar';
 import Inserter from '../inserter';
 import withHoverAreas from './with-hover-areas';
 import { isInsideRootBlock } from '../../utils/dom';
@@ -531,27 +532,29 @@ export class BlockListBlock extends Component {
 					className="editor-block-list__block-edit"
 					data-block={ clientId }
 				>
-					<BlockCrashBoundary onError={ this.onBlockError }>
-						{ isValid && blockEdit }
-						{ isValid && mode === 'html' && (
-							<BlockHtml clientId={ clientId } />
+					<NavigableToolbar.KeybindScope scopeId={ 'block-' + clientId }>
+						<BlockCrashBoundary onError={ this.onBlockError }>
+							{ isValid && blockEdit }
+							{ isValid && mode === 'html' && (
+								<BlockHtml clientId={ clientId } />
+							) }
+							{ ! isValid && [
+								<BlockInvalidWarning
+									key="invalid-warning"
+									block={ block }
+								/>,
+								<div key="invalid-preview">
+									{ getSaveElement( blockType, block.attributes ) }
+								</div>,
+							] }
+						</BlockCrashBoundary>
+						{ shouldShowMobileToolbar && (
+							<BlockMobileToolbar
+								clientId={ clientId }
+							/>
 						) }
-						{ ! isValid && [
-							<BlockInvalidWarning
-								key="invalid-warning"
-								block={ block }
-							/>,
-							<div key="invalid-preview">
-								{ getSaveElement( blockType, block.attributes ) }
-							</div>,
-						] }
-					</BlockCrashBoundary>
-					{ shouldShowMobileToolbar && (
-						<BlockMobileToolbar
-							clientId={ clientId }
-						/>
-					) }
-					{ !! error && <BlockCrashWarning /> }
+						{ !! error && <BlockCrashWarning /> }
+					</NavigableToolbar.KeybindScope>
 				</IgnoreNestedEvents>
 				{ showEmptyBlockSideInserter && (
 					<Fragment>

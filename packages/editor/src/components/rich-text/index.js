@@ -47,6 +47,7 @@ import { decodeEntities } from '@wordpress/html-entities';
 import Autocomplete from '../autocomplete';
 import BlockFormatControls from '../block-format-controls';
 import FormatEdit from './format-edit';
+import NavigableToolbar from '../navigable-toolbar';
 import FormatToolbar from './format-toolbar';
 import TinyMCE from './tinymce';
 import { pickAriaProps } from './aria';
@@ -885,34 +886,36 @@ export class RichText extends Component {
 				>
 					{ ( { isExpanded, listBoxId, activeId } ) => (
 						<Fragment>
-							<TinyMCE
-								tagName={ Tagname }
-								getSettings={ this.getSettings }
-								onSetup={ this.onSetup }
-								style={ style }
-								defaultValue={ value }
-								isPlaceholderVisible={ isPlaceholderVisible }
-								aria-label={ placeholder }
-								aria-autocomplete="list"
-								aria-expanded={ isExpanded }
-								aria-owns={ listBoxId }
-								aria-activedescendant={ activeId }
-								{ ...ariaProps }
-								className={ className }
-								key={ key }
-								onPaste={ this.onPaste }
-								onInput={ this.onInput }
-								multilineTag={ this.multilineTag }
-								setRef={ this.setRef }
-							/>
-							{ isPlaceholderVisible &&
-								<Tagname
-									className={ classnames( 'editor-rich-text__tinymce', className ) }
+							<NavigableToolbar.KeybindScope scopeId="editor-format-toolbar">
+								<TinyMCE
+									tagName={ Tagname }
+									getSettings={ this.getSettings }
+									onSetup={ this.onSetup }
 									style={ style }
-								>
-									{ MultilineTag ? <MultilineTag>{ placeholder }</MultilineTag> : placeholder }
-								</Tagname>
-							}
+									defaultValue={ value }
+									isPlaceholderVisible={ isPlaceholderVisible }
+									aria-label={ placeholder }
+									aria-autocomplete="list"
+									aria-expanded={ isExpanded }
+									aria-owns={ listBoxId }
+									aria-activedescendant={ activeId }
+									{ ...ariaProps }
+									className={ className }
+									key={ key }
+									onPaste={ this.onPaste }
+									onInput={ this.onInput }
+									multilineTag={ this.multilineTag }
+									setRef={ this.setRef }
+								/>
+								{ isPlaceholderVisible &&
+									<Tagname
+										className={ classnames( 'editor-rich-text__tinymce', className ) }
+										style={ style }
+									>
+										{ MultilineTag ? <MultilineTag>{ placeholder }</MultilineTag> : placeholder }
+									</Tagname>
+								}
+							</NavigableToolbar.KeybindScope>
 							{ isSelected && <FormatEdit value={ record } onChange={ this.onChange } /> }
 						</Fragment>
 					) }

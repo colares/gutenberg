@@ -33,6 +33,12 @@ describe( 'block toolbar', () => {
 			!! document.activeElement.closest( '.editor-block-toolbar' )
 		) );
 
+		const isInHeaderToolbar = () => page.evaluate( () => (
+			// Test the precise element since in Unified mode, the block
+			// toolbar is technically a child of the header toolbar.
+			document.activeElement.classList.contains( 'editor-inserter__toggle' )
+		) );
+
 		describe( label, () => {
 			it( 'navigates in and out of toolbar by keyboard (Alt+F10, Escape)', async () => {
 				// Assumes new post focus starts in title. Create first new
@@ -50,11 +56,21 @@ describe( 'block toolbar', () => {
 				// visible.
 				await page.keyboard.press( 'Escape' );
 
+				// At this point, we should have two levels of toolbar to
+				// step into and out of:
+				//
+				// 1. Block
+				// 2. Header
+
 				// Upward
 				await pressWithModifier( 'Alt', 'F10' );
 				expect( await isInBlockToolbar() ).toBe( true );
+				await pressWithModifier( 'Alt', 'F10' );
+				expect( await isInHeaderToolbar() ).toBe( true );
 
 				// Downward
+				await page.keyboard.press( 'Escape' );
+				expect( await isInBlockToolbar() ).toBe( true );
 				await page.keyboard.press( 'Escape' );
 				expect( await isInRichTextEditable() ).toBe( true );
 			} );
