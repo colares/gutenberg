@@ -156,6 +156,7 @@ describe( 'actions', () => {
 		it( 'should return the REPLACE_BLOCKS action', () => {
 			const block = {
 				clientId: 'ribs',
+				attributes: {},
 			};
 
 			expect( replaceBlock( [ 'chicken' ], block ) ).toEqual( {
@@ -171,6 +172,7 @@ describe( 'actions', () => {
 		it( 'should return the REPLACE_BLOCKS action', () => {
 			const blocks = [ {
 				clientId: 'ribs',
+				attributes: {},
 			} ];
 
 			expect( replaceBlocks( [ 'chicken' ], blocks ) ).toEqual( {
@@ -186,6 +188,7 @@ describe( 'actions', () => {
 		it( 'should return the INSERT_BLOCKS action', () => {
 			const block = {
 				clientId: 'ribs',
+				attributes: {},
 			};
 			const index = 5;
 			expect( insertBlock( block, index, 'testclientid' ) ).toEqual( {
@@ -202,6 +205,7 @@ describe( 'actions', () => {
 		it( 'should return the INSERT_BLOCKS action', () => {
 			const blocks = [ {
 				clientId: 'ribs',
+				attributes: {},
 			} ];
 			const index = 3;
 			expect( insertBlocks( blocks, index, 'testclientid' ) ).toEqual( {

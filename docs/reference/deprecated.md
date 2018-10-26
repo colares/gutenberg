@@ -4,6 +4,7 @@ Gutenberg's deprecation policy is intended to support backwards-compatibility fo
 
 - `wp.date.getSettings` has been removed. Please use `wp.date.__experimentalGetSettings` instead.
 - `wp.compose.remountOnPropChange` has been removed.
+- Block `layout` support has been removed, including the `InnerBlocks` `layouts` prop. See: https://github.com/WordPress/gutenberg/blob/master/packages/editor/src/components/inner-blocks/README.md#usage
 
 ## 4.3.0
 
