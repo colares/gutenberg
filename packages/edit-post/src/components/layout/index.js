@@ -70,7 +70,6 @@ function Layout( {
 			<BrowserURL />
 			<UnsavedChangesWarning />
 			<AutosaveMonitor />
-			<PluginArea />
 			<Header />
 			<NavigableToolbar.KeybindScope
 				scopeId="edit-post-header"
